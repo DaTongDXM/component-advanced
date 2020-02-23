@@ -68,8 +68,8 @@ export default {
     // 只支持 blur 和 change，所以过滤出符合要求的 rule 规则
     getFilteredRule(trigger) {
       const rules = this.getRules();
-      rules.filter(
-        rule => !rule.trigger || rule.trigger.indexOf(trigger) !== -1
+      return rules.filter(
+        rule =>!rule.trigger || rule.trigger.indexOf(trigger) !== -1
       );
     },
     /**
@@ -78,6 +78,7 @@ export default {
      * @param callback 回调函数
      */
     validate(trigger, callback = function() {}) {
+      
       let rules = this.getFilteredRule(trigger);
       if (!rules || rules.length == 0) {
         return true;
@@ -122,4 +123,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.i-form-item-label-required::before{
+  content: '*';
+  color:red;
+}
+.i-form-item-message{
+  color: red
+}
+</style>
