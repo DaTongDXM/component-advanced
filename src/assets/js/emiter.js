@@ -18,9 +18,9 @@ export default{
         if (parent) {
           name = parent.$options.name
         }
-        if (parent) {
-          parent.$emit(eventName, params)
-        }
+      }
+      if (parent) {
+        parent.$emit(eventName, params)
       }
     },
     broadcast (componentName, eventName, params) {

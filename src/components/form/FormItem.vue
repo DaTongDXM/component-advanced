@@ -1,32 +1,125 @@
 <template>
-  <div><label for=""></label></div>
+  <div>
+    <label v-if="label" :class="{ 'i-form-item-label-required': isRequired }">{{ label }}</label>
+    <div>
+      <slot></slot>
+      <div v-if="validateState === 'error'" class="i-form-item-message">{{ validateMessage }}</div>
+    </div>
+  </div>
+</template>
 </template>
 
 <script>
-import Emiter from '../../assets/js/emiter.js'
+import Emiter from "../../assets/js/emiter.js";
+import AsyncValidator from "async-validator";
 export default {
-  name: '',
+  name: "iFormItem",
   mixins: [Emiter],
-  inject: ['form'],
+  inject: ["form"],
   props: {
     label: {
       type: String,
-      default: ''
+      default: ""
     },
     prop: {
       type: String
     }
   },
-  data () {
+  data() {
     return {
-    }
+      isRequired: false,
+      validateState: "", // 校验状态
+      validateMessage: "" // 校验不通过时的提示信息
+    };
   },
   components: {},
-  mounted () {},
-  created () {},
-  methods: {}
-}
+  computed: {
+    fieldValue() {
+      return this.form.model[this.prop];
+    }
+  },
+  mounted() {
+    if (this.prop) {
+      this.dispatch("iForm", "on-form-item-add", this);
+      this.initialValue = this.fieldValue;
+      this.setRules();
+    }
+  },
+  created() {},
+  methods: {
+    setRules() {
+             let rules = this.getRules();
+        if (rules.length) {
+          rules.every((rule) => {
+            // 如果当前校验规则中有必填项，则标记出来
+            this.isRequired = rule.required;
+          });
+        }
+
+        this.$on('on-form-blur', this.onFieldBlur);
+        this.$on('on-form-change', this.onFieldChange);
+    },
+    // 从 Form 的 rules 属性中，获取当前 FormItem 的校验规则
+    getRules() {
+      let formRules = this.form.rules;
+      formRules = formRules ? formRules[this.prop] : [];
+      return [].concat(formRules);
+    },
+    // 只支持 blur 和 change，所以过滤出符合要求的 rule 规则
+    getFilteredRule(trigger) {
+      const rules = this.getRules();
+      rules.filter(
+        rule => !rule.trigger || rule.trigger.indexOf(trigger) !== -1
+      );
+    },
+    /**
+     * 校验数据
+     * @param trigger 校验类型
+     * @param callback 回调函数
+     */
+    validate(trigger, callback = function() {}) {
+      let rules = this.getFilteredRule(trigger);
+      if (!rules || rules.length == 0) {
+        return true;
+      }
+      // 设置状态为校验中
+      this.validateState = "validating";
+      // 以下为 async-validator 库的调用方法
+      let descriptor = {};
+      descriptor[this.prop] = rules;
+
+      const validator = new AsyncValidator(descriptor);
+      let model = {};
+
+      model[this.prop] = this.fieldValue;
+
+      validator.validate(model, { firstFields: true }, errors => {
+        this.validateState = !errors ? "success" : "error";
+        this.validateMessage = errors ? errors[0].message : "";
+
+        callback(this.validateMessage);
+      });
+    },
+    onFieldChange() {
+      console.log('onFieldChange');
+      
+      this.validate("change");
+    },
+    onFieldBlur() {
+       console.log('onFieldBlur');
+      this.validate("blur");
+    },
+    resetField() {
+      this.validateState = "";
+      this.validateMessage = "";
+
+      this.form.model[this.prop] = this.initialValue;
+    }
+  },
+  beforeDestroy() {
+    this.dispatch("iForm", "on-form-item-remove", this);
+  }
+};
 </script>
 
-<style lang='scss' scoped>
-</style>
+<style lang="scss" scoped></style>
