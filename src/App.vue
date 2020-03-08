@@ -3,6 +3,8 @@
     <img src="./assets/logo.png">
      <router-link to="/form">form</router-link>
     <router-link to="/checkbox">checkbox</router-link>
+    <router-link to="/display">display</router-link>
+    <router-link to="/alert">Alert</router-link>
     <router-view/>
   </div>
 </template>

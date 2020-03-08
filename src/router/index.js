@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import FormIndex from '@/view/FormIndex'
 import CheckBoxIndex from '@/view/CheckBoxIndex'
+import Display from '@/view/Display'
+import Alert from '@/view/Alert'
 Vue.use(Router)
 
 export default new Router({
@@ -19,6 +21,14 @@ export default new Router({
       path: '/checkbox',
       name: 'CheckBox',
       component: CheckBoxIndex
+    }, {
+      path: '/display',
+      name: 'Display',
+      component: Display
+    }, {
+      path: '/alert',
+      name: 'Alert',
+      component: Alert
     }
   ]
 })
