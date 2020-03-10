@@ -17,7 +17,7 @@ Alert.newInstance = properties => {
   document.body.appendChild(component.$el)
   // 因为现在只渲染了一个Alert组件，所以可以通过$children[0]来获取
   const alert = Instance.$children[0]
-  // 这里通过闭包将渲染后的组件方法暴露给外部
+  // 这里通过闭包将渲染后的组件方法暴露给外部bhb
   return {
     add (noticeProps) {
       alert.add(noticeProps)

@@ -28,6 +28,14 @@
     </i-form>
     <button @click="handleSubmit">提交</button>
     <button @click="handleReset">重置</button>
+  <div class="iButton">
+    <i-button>
+      按钮1
+    </i-button>
+    <i-button to="www.baidu.com">
+      按钮2
+    </i-button>
+  </div>
   </div>
 </template>
 
@@ -37,6 +45,7 @@ import iFormItem from '../components/form/FormItem'
 import iInput from '../components/input/input.vue'
 import iCheckbox from '../components/checkbox/checkbox.vue'
 import iCheckboxGroup from '../components/checkbox/checkbox-group.vue'
+import iButton from '../components/to1/button.vue'
 export default {
   name: '',
   data () {
@@ -76,7 +85,7 @@ export default {
 
     }
   },
-  components: { iForm, iFormItem, iInput, iCheckbox, iCheckboxGroup },
+  components: { iForm, iFormItem, iInput, iCheckbox, iCheckboxGroup, iButton },
   mounted () {
 
   },
@@ -99,4 +108,11 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+.iButton{
+  margin-top: 20px;
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  border: 1px solid #3f3f3f;
+}
 </style>

@@ -1,10 +1,13 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-     <router-link to="/form">form</router-link>
-    <router-link to="/checkbox">checkbox</router-link>
-    <router-link to="/display">display</router-link>
+     <router-link to="/form">Form</router-link>
+    <router-link to="/checkbox">Checkbox</router-link>
+    <router-link to="/display">Display</router-link>
     <router-link to="/alert">Alert</router-link>
+    <router-link to="/table-render">Table-render</router-link>
+    <router-link to="/table-slot">Table-slot</router-link>
+
     <router-view/>
   </div>
 </template>

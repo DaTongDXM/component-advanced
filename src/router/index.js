@@ -5,6 +5,8 @@ import FormIndex from '@/view/FormIndex'
 import CheckBoxIndex from '@/view/CheckBoxIndex'
 import Display from '@/view/Display'
 import Alert from '@/view/Alert'
+import TableRender from '@/view/table-render.vue'
+import TableSlot from '@/view/table-slot.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -29,6 +31,15 @@ export default new Router({
       path: '/alert',
       name: 'Alert',
       component: Alert
+    },
+    {
+      path: '/table-render',
+      name: 'TableRender',
+      component: TableRender
+    }, {
+      path: '/table-slot',
+      name: 'TableSlot',
+      component: TableSlot
     }
   ]
 })
