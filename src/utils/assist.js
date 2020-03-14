@@ -60,47 +60,47 @@ function findBrothersComponents (context, componentName, exceptMe = true) {
   return res
 }
 
-function typeOf(obj) {
-  const toString = Object.prototype.toString;
+function typeOf (obj) {
+  const toString = Object.prototype.toString
   const map = {
-    '[object Boolean]'  : 'boolean',
-    '[object Number]'   : 'number',
-    '[object String]'   : 'string',
-    '[object Function]' : 'function',
-    '[object Array]'    : 'array',
-    '[object Date]'     : 'date',
-    '[object RegExp]'   : 'regExp',
+    '[object Boolean]': 'boolean',
+    '[object Number]': 'number',
+    '[object String]': 'string',
+    '[object Function]': 'function',
+    '[object Array]': 'array',
+    '[object Date]': 'date',
+    '[object RegExp]': 'regExp',
     '[object Undefined]': 'undefined',
-    '[object Null]'     : 'null',
-    '[object Object]'   : 'object'
-  };
-  return map[toString.call(obj)];
+    '[object Null]': 'null',
+    '[object Object]': 'object'
+  }
+  return map[toString.call(obj)]
 }
 
-function deepCopy(data){
-    const t=typeOf(data)
-    let o
+function deepCopy (data) {
+  const t = typeOf(data)
+  let o
 
-    if(t==='array'){
-      o=[]
-    }else if(t==='object'){
-      o={}
-    }else{
-      return data
-    }
+  if (t === 'array') {
+    o = []
+  } else if (t === 'object') {
+    o = {}
+  } else {
+    return data
+  }
 
-    if(t==='array'){
-      data.forEach(e => {
-        o.push(deepCopy(e))
-      });
-    }else if(t==='object'){
-      for (const key in data) {
-        if (data.hasOwnProperty(key)) {
-          const element = data[key];
-          o[key]=deepCopy(element)
-        }
+  if (t === 'array') {
+    data.forEach(e => {
+      o.push(deepCopy(e))
+    })
+  } else if (t === 'object') {
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        const element = data[key]
+        o[key] = deepCopy(element)
       }
     }
-    return o
+  }
+  return o
 }
-export { findComponentUpward, findComponentsUpward, findComponentDownward, findComponentsDownward, findBrothersComponents,deepCopy}
+export { findComponentUpward, findComponentsUpward, findComponentDownward, findComponentsDownward, findBrothersComponents, deepCopy}

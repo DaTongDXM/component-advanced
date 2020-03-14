@@ -7,6 +7,11 @@ import Display from '@/view/Display'
 import Alert from '@/view/Alert'
 import TableRender from '@/view/table-render.vue'
 import TableSlot from '@/view/table-slot.vue'
+import TreeIndex from '@/view/TreeIndex.vue'
+import OtherComponent from '@/view/OtherCompnent.vue'
+import CSSDisplay from '@/css/display/display.vue'
+import Position from '@/css/position/position.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -40,6 +45,22 @@ export default new Router({
       path: '/table-slot',
       name: 'TableSlot',
       component: TableSlot
+    }, {
+      path: '/tree-index',
+      name: 'TreeIndex',
+      component: TreeIndex
+    }, {
+      path: '/other',
+      name: 'Other',
+      component: OtherComponent
+    }, {
+      path: '/cssdisplay',
+      name: 'cssdisplay',
+      component: CSSDisplay
+    }, {
+      path: '/position',
+      name: 'position',
+      component: Position
     }
   ]
 })

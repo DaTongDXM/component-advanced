@@ -3,7 +3,7 @@
       <table-slot :colums="colums" :data="data">
         <template slot-scope="{row,index}" slot="name">
           <input type="text" v-if="editIndex==index" v-model="editName">
-          <span v-else>{{row.name}}</span>
+          <span v-else>{{row.name|names}}</span>
         </template>
         <template slot-scope="{row,index}" slot="age">
           <input type="text" v-if="editIndex==index" v-model="editAge">
@@ -87,6 +87,11 @@ export default {
       editBirthday: '',
       editAddress: '',
       editIndex: -1
+    }
+  },
+  filters: {
+    'names': function (value) {
+      return value + 'a'
     }
   },
   components: {TableSlot},

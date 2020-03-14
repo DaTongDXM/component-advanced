@@ -1,42 +1,50 @@
 <template>
   <div>
-    <tree-node v-for="(item,index) in copyData"
-                :index="index" 
+    <tree-node v-for="(item,index) in cloneData"
+                :key="index"
                 :data="item"
                 :show-checkbox="showCheckbox"></tree-node>
   </div>
 </template>
 
 <script>
-import TreeNode from "../tree/node.vue";
-import deepCopy from "../../utils/assist.js";
+import TreeNode from './node.vue'
+import {deepCopy} from '../../utils/assist.js'
 export default {
-    name:"Tree",
-    props:{
-        data:{
-            type:Array,
-            default(){
-                return []
-            }
-        },
-        showCheckBox:{
-            type:Boolean,
-            default:false
-        }
-    },
-  data() {
-    return {
-      copyData: []
-    };
-  },
-  component: { TreeNode },
-  created() {this.rebuildData()},
-  mounted() {
-      rebuildData(){
-          this.copyData=deepCopy(this.data)
+  name: 'Tree',
+  components: { TreeNode },
+  props: {
+    data: {
+      type: Array,
+      default () {
+        return []
       }
+    },
+    showCheckbox: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data () {
+    return {
+      cloneData: []
+    }
+  },
+  watch: {
+    data () {
+      this.rebuildData()
+    }
+  },
+  created () { this.rebuildData() },
+  methods: {
+    rebuildData () {
+      this.cloneData = deepCopy(this.data)
+    },
+    emitEvent (eventName, data) {
+      this.$emit(eventName, data, this.cloneData)
+    }
   }
-};
+}
 </script>
 <style scoped>
 /* @import url(); 引入css类 */
