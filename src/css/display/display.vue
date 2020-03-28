@@ -22,10 +22,36 @@
           <span>我是行内元素span</span>
           <strong>我是行内元素strong</strong>
       </section>
+      <section class="sticky">
+          <p>
+　　　　<div class="box" id="one">One</div>
+　　　　<div class="box" id="two1">Two1</div>
+　　　　<div class="box" id="three">Three</div>
+　　　　<div class="box" id="four">Four</div><br><br><br><br>
+　　</p><p>
+　　　　<div class="box" id="one">One</div>
+　　　　<div class="box" id="two2">Two2</div>
+　　　　<div class="box" id="three">Three</div>
+　　　　<div class="box" id="four">Four</div><br><br><br><br>
+　　</p>
+<p>
+　　　　<div class="box" id="one">One</div>
+　　　　<div class="box" id="two">Two</div>
+　　　　<div class="box" id="three">Three</div>
+　　　　<div class="box" id="four">Four</div><br><br><br><br>
+　　</p>
+<p>
+　　　　<div class="box" id="one">One</div>
+　　　　<div class="box" id="two">Two</div>
+　　　　<div class="box" id="three">Three</div>
+　　　　<div class="box" id="four">Four</div><br><br><br><br>
+　　</p>
+      </section>
   </div>
 </template>
 
 <script>
+import {MyPromise} from '../../utils/promise.js'
 export default {
   name: '',
   data () {
@@ -35,7 +61,12 @@ export default {
   },
   components: {},
   mounted () {},
-  created () {},
+  created () {
+    let myPromise = new MyPromise((resolve, reject) => {
+      reject(1)
+    })
+    myPromise.then(res => { console.log(res) }, rej => { console.log('rej' + rej) })
+  },
   methods: {
     btnClick () {
       this.$router.push('/position')
@@ -128,4 +159,23 @@ span{
      float: left;
      }
     }
+.sticky>div{
+    display: inline-block;
+    width: 20%;
+    height: 200px;
+    background-color: burlywood;
+}
+#two1 {
+position: sticky;
+top: 20px;
+left: 20px;
+background: #168989;
+}
+#two2 {
+position: fixed;
+top: 20px;
+left: 20px;
+background: #452589;
+}
+
 </style>
